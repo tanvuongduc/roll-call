@@ -1,0 +1,6 @@
+.env
+/dist
+node_modules
+# ts node dump
+/report.*.json
+/tmp

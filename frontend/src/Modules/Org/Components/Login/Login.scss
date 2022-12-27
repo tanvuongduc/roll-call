@@ -1,0 +1,15 @@
+@import "../../../../Styles/variables";
+.loginCard {
+    width: 500px;
+    height: 300px;
+    padding: 20px 40px;
+    margin: auto;
+    margin-top: 200px;
+    border: $border;
+    border-radius: $border-radius;
+    box-shadow: 3px 3px 5px #c3c3c3;
+    h2 {
+        margin: 0 0 30px 0;
+        text-align: center;
+    }
+}

@@ -1,0 +1,43 @@
+.table-container{
+// border: 1px solid #ced4da;
+border-radius: 5px;
+overflow: hidden;
+padding: 0;
+}
+
+table {
+  border-spacing: 0;
+  width: 100%;
+  thead {
+    background-color:#28b76b;
+    th{
+      color: #fff;
+      text-align: center
+    }
+  }
+
+  tr {
+    :last-child {
+      td {
+        border-bottom: 0;
+      }
+    }
+  }
+
+  th,
+  td {
+    margin: 0;
+    padding: 0.5rem;
+    border-bottom: 1px solid black;
+    border-right: 1px solid black;
+
+    :last-child {
+      border-right: 0;
+    }
+  }
+
+  th span img {
+    width: 20px;
+    margin-right: 10px;
+  }
+}

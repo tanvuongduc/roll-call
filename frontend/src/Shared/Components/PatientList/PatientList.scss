@@ -1,0 +1,7 @@
+.patientList {
+  max-height: 100vh;
+  width: 100%;
+  .active{
+    background-color: hsl($c-hue, $c-sat, 80);
+  }
+}

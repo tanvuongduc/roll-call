@@ -1,0 +1,17 @@
+.appHeaderContainer {
+    max-height: 70px;
+    color: $c-text;
+    background: $c-background-head;
+    justify-content: space-between;
+    box-shadow: 0px 0px 5px ​$c-text;
+    li{
+        width: unset;
+    }
+    li:hover{
+        background-color: $c-background-head-hover;
+    }
+    a {
+        color: $c-text-head;
+    }
+  
+}
