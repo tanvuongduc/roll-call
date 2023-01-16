@@ -33,7 +33,7 @@ export function NewAuthAPI(
         await userAuthBLL.SetPassword(user_id, password);
         res.json(1);
     });
-    app.use(NewAuthMiddleware(userAuthBLL));
+    // app.use(NewAuthMiddleware(userAuthBLL));
     app.get("/me", async (req, res) => {
         const session = GetAuthData(req);
         try {

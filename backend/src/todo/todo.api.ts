@@ -6,7 +6,7 @@ import { UserAuthNS } from "../auth/auth";
 
 export function NewTodoAPI(userAuthBLL: UserAuthNS.BLL, todoBLL: TodoNS.BLL) {
   const app = express();
-  app.use(NewAuthMiddleware(userAuthBLL));
+  // app.use(NewAuthMiddleware(userAuthBLL));
   app.post("/todo/create", async (req, res) => {
     const { user_id } = GetAuthData(req);
     const title = HttpParamValidators.MustBeString(req.body, "title", 2);
@@ -18,7 +18,10 @@ export function NewTodoAPI(userAuthBLL: UserAuthNS.BLL, todoBLL: TodoNS.BLL) {
     res.json(todo);
   });
   app.get("/todo/list", async (req, res) => {
+    console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+    
     const { user_id } = GetAuthData(req);
+
     const docs = await todoBLL.ListTodo(user_id);
     res.json(docs);
   });

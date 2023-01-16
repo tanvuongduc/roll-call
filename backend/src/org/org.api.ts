@@ -4,7 +4,7 @@ import { OrgNS } from "./org";
 import { UserAuthNS } from "../auth/auth";
 
 export function NewOrgAPI(
-  userAuthBLL: UserAuthNS.BLL,
+  // userAuthBLL: UserAuthNS.BLL,
   orgBLL: OrgNS.BLL,
 ) {
   const app = express();

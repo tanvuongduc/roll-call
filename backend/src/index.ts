@@ -32,14 +32,13 @@ import { ExpressStaticFallback } from "./lib/express";
 async function main() {
   const config = await ReadConfig();
   console.log(config);
-  console.log(config);
   const client = await MongoCommon.Connect(config.database.db_url, { replica: false });
   console.log('connected to database');
   const database = client.db(config.database.db_name);
   /******************************************************* */
-  const contextBLL = new ContextBLLBase(client);
-  const eventBLL = new EventBLLBase(database, contextBLL);
-  await eventBLL.init();
+  // const contextBLL = new ContextBLLBase(client);
+  // const eventBLL = new EventBLLBase(database, contextBLL);
+  // await eventBLL.init();
 
   // org
   const orgDAL = new OrgDALMongo(database);
@@ -80,7 +79,7 @@ async function main() {
   app.use(express.json());
   app.use('/api/auth/', NewAuthAPI(userAuthBLL));
   app.use('/api/location/', NewLocationAPI(userAuthBLL, locationBLL));
-  app.use("/api/org", NewOrgAPI(userAuthBLL, orgBLL))
+  app.use("/api/org", NewOrgAPI(orgBLL))
   app.use("/api/customer/", NewCustomerAPI(userAuthBLL, customerBLL));
   app.use('/api/todo/', NewTodoAPI(userAuthBLL, todoBLL));
   app.use('/api/location/', NewLocationAPI(userAuthBLL, locationBLL));
