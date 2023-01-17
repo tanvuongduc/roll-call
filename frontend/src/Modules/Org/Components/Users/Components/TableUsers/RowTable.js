@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import { Button } from "reactstrap";
 import { Fragment } from "react";
-import { ROLE } from "../../../../../../Constances/const";
+import { ROLE, ROLE_ID } from "../../../../../../Constances/const";
 
 class RowTable extends Component {
   onDelete = (id) => {
@@ -20,7 +20,7 @@ class RowTable extends Component {
       this.props.user;
     let ctime = new Date(user.ctime);
     let date = new Date(birthday);
-    // let roleKey = Object.keys(ROLE_ID).find((k) => ROLE_ID[k].value == role_id);
+    let roleKey = Object.keys(ROLE_ID).find((k) => ROLE_ID[k].value == role_id);
     return (
       <Fragment>
         <tr>
@@ -29,7 +29,7 @@ class RowTable extends Component {
           </td>
           <td width="20%">{username}</td>
           <td>{last_name + " " + first_name}</td>
-          <td>{role_id}</td>
+          <td>{ROLE_ID[roleKey]?.name}</td>
           <td>
             {ctime.getDate() < 10
               ? "0" + (ctime.getDate() + 1)

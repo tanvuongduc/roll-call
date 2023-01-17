@@ -10,7 +10,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      UsersList: [],
+      usersList: [],
       id: "",
       confirmMessage: "",
       notiMessage: "",

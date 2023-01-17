@@ -91,11 +91,7 @@ export function NewUsersAPI(
     }
 
     if (req.body.role_id) {
-      params.last_name = HttpParamValidators.MustBeString(
-        req.body,
-        "role_id",
-        2
-      );
+      params.role_id = HttpParamValidators.MustBeNumber(req.body, "role_id", 0);
     }
 
     if (req.body.phone) {

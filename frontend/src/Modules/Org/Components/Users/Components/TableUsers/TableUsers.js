@@ -13,10 +13,10 @@ class TableUsers extends Component {
   }
 
   render() {
-    let { usersList } = this.props;
+    let { userList } = this.props;
     let user;
-    if (usersList) {
-      user = usersList.map((user, index) => {
+    if (userList) {
+      user = userList.map((user, index) => {
         return (
           <RowTable
             key={user.id}

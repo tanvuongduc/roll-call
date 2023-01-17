@@ -9,12 +9,12 @@ export const ROLE = {
   ADMIN: { name: "Admin", value: "admin" },
   // RECEPTIONIST: 'nhan_vien',
 };
-// export const ROLE_ID = {
-//   1: { name: "Nhân Viên", value: "nhan_vien" },
-//   2: { name: "Quản lý", value: "quan_ly" },
-//   3: { name: "Admin", value: "admin" },
-//   // RECEPTIONIST: 'nhan_vien',
-// };
+export const ROLE_ID = {
+  1: { name: "Nhân Viên", value: 1 },
+  2: { name: "Quản lý", value: 2 },
+  3: { name: "Admin", value: 3 },
+  // RECEPTIONIST: 'nhan_vien',
+};
 
 export const STATUS = {
   NEW: "new",

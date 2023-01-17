@@ -53,9 +53,9 @@ export default class AddUpdateUser extends Component<any, any> {
   };
   onHandleChange1 = (e: any) => {
     let name = e.target.name;
-    let value = e.target.value;
+    let value = Number(e.target.value);
     this.setState({
-      [name]: ++value,
+      [name]: value,
     });
   };
 
@@ -171,7 +171,7 @@ export default class AddUpdateUser extends Component<any, any> {
           <FormGroup>
             <Label>Mã chức vụ</Label>
             <Input
-              type="number"
+              type="text"
               id="role_id"
               name="role_id"
               value={role_id}
