@@ -28,7 +28,7 @@ export class UsersBLLBase implements UsersNS.BLL {
     const user = {
       id: UsersNS.Generator.NewUserId(),
       username: params.username,
-      role: params.role,
+      role_id: params.role_id,
       first_name: params.first_name,
       last_name: params.last_name,
       phone: params.phone,
@@ -50,8 +50,8 @@ export class UsersBLLBase implements UsersNS.BLL {
       user.last_name = params.last_name;
     }
 
-    if (params.role) {
-      user.role = params.role;
+    if (params.role_id) {
+      user.role_id = params.role_id;
     }
 
     if (params.phone) {

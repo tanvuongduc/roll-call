@@ -5,7 +5,7 @@ import { AuthService } from "../..";
 import { ROLE } from "../../../Constances/const";
 
 import User from "../../../../src/Modules/Org/Components/User/User";
-
+import Users from "../../../Modules/Org/Components/Users/Users";
 class App extends React.Component<any, any> {
   render() {
     const { path } = this.props.match;
@@ -31,7 +31,7 @@ class App extends React.Component<any, any> {
                             return (<Redirect to="/app/org/notauthorized" ></Redirect>)
                         }
                     }}></Route> */}
-          <Route path={`${path}/user`} component={User} />
+          <Route path={`${path}/users`} component={Users} />
         </Switch>
       </div>
     );

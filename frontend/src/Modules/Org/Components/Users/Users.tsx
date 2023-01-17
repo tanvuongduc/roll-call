@@ -3,11 +3,11 @@ import { Route, Switch } from "react-router-dom";
 import AddUpdateUser from "./Components/AddUpdateUser/AddUpdateUser";
 import Main from "./Components/UsersList/Main";
 
-class User extends Component<any> {
+class Users extends Component<any> {
   render() {
     const { path } = this.props.match;
     return (
-      <div className="User">
+      <div className="Users">
         <Switch>
           <Route path={`${path}/create`} component={AddUpdateUser} />
           <Route path={`${path}/:id`} component={AddUpdateUser} />
@@ -18,4 +18,4 @@ class User extends Component<any> {
   }
 }
 
-export default User;
+export default Users;

@@ -9,8 +9,8 @@ import Login from "./Modules/Org/Components/Login/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/index.scss";
 
-const isLogged = !!AuthService.userInfo;
-
+//const isLogged = !!AuthService.userInfo;
+const isLogged = true;
 const Root = (
   <BrowserRouter>
     <Fragment>

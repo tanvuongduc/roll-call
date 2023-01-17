@@ -46,7 +46,7 @@ export function NewUsersAPI(
       "last_name",
       2
     );
-    const role = HttpParamValidators.MustBeString(req.body, "role", 2);
+    const role_id = HttpParamValidators.MustBeNumber(req.body, "role_id", 0);
     const phone = HttpParamValidators.MustBeString(req.body, "phone", 10);
     let birthday = req.body.birthday;
     if (!birthday) {
@@ -61,7 +61,7 @@ export function NewUsersAPI(
       username,
       first_name,
       last_name,
-      role,
+      role_id,
       phone,
       birthday,
     };
@@ -90,8 +90,12 @@ export function NewUsersAPI(
       );
     }
 
-    if (req.body.role) {
-      params.last_name = HttpParamValidators.MustBeString(req.body, "role", 2);
+    if (req.body.role_id) {
+      params.last_name = HttpParamValidators.MustBeString(
+        req.body,
+        "role_id",
+        2
+      );
     }
 
     if (req.body.phone) {
