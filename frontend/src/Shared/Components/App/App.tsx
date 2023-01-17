@@ -4,18 +4,16 @@ import AppHeader from "../AppHeader/AppHeader";
 import { AuthService } from "../..";
 import { ROLE } from "../../../Constances/const";
 
-
-import User from '../../../../src/Modules/Org/Components/User/User';
+import User from "../../../../src/Modules/Org/Components/User/User";
 
 class App extends React.Component<any, any> {
-    render() {
-        const { path } = this.props.match;
-        return (
-            <div className="App">
-                <AppHeader></AppHeader>
-
-                <Switch>
-                    {/* <Route exact path={`${path}`} render={() => {
+  render() {
+    const { path } = this.props.match;
+    return (
+      <div className="App">
+        <AppHeader></AppHeader>
+        <Switch>
+          {/* <Route exact path={`${path}`} render={() => {
                         
                         if (AuthService.hasRole(ROLE.RECEPTIONIST) || AuthService.hasRole(ROLE.ADMIN)) {
                             return (<Redirect to="/app/reception" ></Redirect>)
@@ -33,11 +31,11 @@ class App extends React.Component<any, any> {
                             return (<Redirect to="/app/org/notauthorized" ></Redirect>)
                         }
                     }}></Route> */}
-                    <Route path={`${path}/user`} component={User} />
-                </Switch>
-            </div>
-        );
-    }
+          <Route path={`${path}/user`} component={User} />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 export default withRouter(App);

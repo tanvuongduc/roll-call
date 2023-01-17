@@ -14,6 +14,10 @@ import { CustomerDALMongo } from "./customer/customer.dal.mongo";
 import { CustomerBLLBase } from "./customer/customer.bll.base";
 import { NewCustomerAPI } from "./customer/customer.api";
 
+import { NewUsersAPI } from "./users/users.api";
+import { UsersBLLBase } from "./users/users.bll.base";
+import { UsersDALMongo } from "./users/users.dal.mongo";
+
 import { NewOrgAPI } from "./org/org.api";
 import { OrgBLLBase } from "./org/org.bll.base";
 import { OrgDALMongo } from "./org/org.dal.mongo";
@@ -33,26 +37,34 @@ async function main() {
   const config = await ReadConfig();
   console.log(config);
   console.log(config);
-  const client = await MongoCommon.Connect(config.database.db_url, { replica: false });
-  console.log('connected to database');
+  const client = await MongoCommon.Connect(config.database.db_url, {
+    replica: false,
+  });
+  console.log("connected to database");
   const database = client.db(config.database.db_name);
   /******************************************************* */
   const contextBLL = new ContextBLLBase(client);
   const eventBLL = new EventBLLBase(database, contextBLL);
   await eventBLL.init();
 
+  // users
+  const usersDAL = new UsersDALMongo(database);
+  await usersDAL.init();
+  const usersBLL = new UsersBLLBase(usersDAL);
+  await usersBLL.init();
+
   // org
   const orgDAL = new OrgDALMongo(database);
   await orgDAL.init();
   const orgBLL = new OrgBLLBase(orgDAL);
   await orgBLL.init();
-  
+
   // auth
   const userAuthDAL = new UserAuthDALMongo(database);
   await userAuthDAL.init();
   const userAuthBLL = new UserAuthBLLBase(userAuthDAL, orgBLL);
   await userAuthBLL.init();
-  // 
+  //
   const todoDAL = new TodoDALMongo(database);
   await todoDAL.init();
   const todoBLL = new TodoBLLBase(todoDAL);
@@ -69,7 +81,6 @@ async function main() {
   await locationDAL.init();
   const locationBLL = new LocationBLLBase(locationDAL);
   await locationBLL.init();
-  
 
   /******************************************************* */
 
@@ -78,13 +89,14 @@ async function main() {
   app.disable("x-powered-by");
   app.use(cors());
   app.use(express.json());
-  app.use('/api/auth/', NewAuthAPI(userAuthBLL));
-  app.use('/api/location/', NewLocationAPI(userAuthBLL, locationBLL));
-  app.use("/api/org", NewOrgAPI(userAuthBLL, orgBLL))
+  app.use("/api/auth/", NewAuthAPI(userAuthBLL));
+  app.use("/api/location/", NewLocationAPI(userAuthBLL, locationBLL));
+  app.use("/api/org", NewOrgAPI(orgBLL));
+  app.use("/api/users", NewUsersAPI(usersBLL));
   app.use("/api/customer/", NewCustomerAPI(userAuthBLL, customerBLL));
-  app.use('/api/todo/', NewTodoAPI(userAuthBLL, todoBLL));
-  app.use('/api/location/', NewLocationAPI(userAuthBLL, locationBLL));
-  
+  app.use("/api/todo/", NewTodoAPI(userAuthBLL, todoBLL));
+  app.use("/api/location/", NewLocationAPI(userAuthBLL, locationBLL));
+
   /****************************************************** */
   app.use("/", ExpressStaticFallback(config.app.dir));
   app.use(HttpErrorHandler);
@@ -96,14 +108,13 @@ async function main() {
     }
   });
   /****************************************************** */
-  
 }
 
-const isSetup = process.argv[2] === 'setup';
+const isSetup = process.argv[2] === "setup";
 
 if (isSetup) {
-  console.log('in setup mode');
-  require('./setup/setup').SetupSampleData().catch(console.log);
+  console.log("in setup mode");
+  require("./setup/setup").SetupSampleData().catch(console.log);
 } else {
   main().catch(console.log);
 }

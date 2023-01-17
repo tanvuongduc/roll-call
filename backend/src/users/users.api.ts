@@ -1,61 +1,41 @@
 import * as express from "express";
 import { HttpError, HttpStatusCodes, HttpParamValidators } from "../lib/http";
-import { OrgNS } from "./org";
+import { UsersNS } from "./users";
 import { UserAuthNS } from "../auth/auth";
 
-export function NewOrgAPI(
+export function NewUsersAPI(
   // userAuthBLL: UserAuthNS.BLL,
-  orgBLL: OrgNS.BLL
+  orgBLL: UsersNS.BLL
 ) {
   const app = express();
-  const roleType = Object.values(OrgNS.Role);
-
-  //Get list
-  app.get("/org/list", async (req, res) => {
-    const docs = await orgBLL.ListOrg();
-    res.json(docs);
-  });
-
-  //Create new org
-  app.post("/org/create", async (req, res) => {
-    const name = HttpParamValidators.MustBeString(req.body, "name", 2);
-    const params: OrgNS.CreateOrgParams = {
-      name,
-    };
-    const org = await orgBLL.CreateOrg(params);
-    res.json(org);
-  });
-
   //----USER-----//
   //Get list user
-  app.get("/user/list", async (req, res) => {
-    const docs = await orgBLL.ListUser();
+  app.get("/users/list", async (req, res) => {
+    const docs = await orgBLL.ListUsers();
     res.json(docs);
   });
 
   //Get one user by ID or username
-  app.get("/user/get", async (req, res) => {
+  app.get("/users/get", async (req, res) => {
     if (req.query.id) {
       const id = HttpParamValidators.MustBeString(req.query, "id", 8);
-      const doc = await orgBLL.GetUser(id);
+      const doc = await orgBLL.GetUsers(id);
       res.json(doc);
     }
-
     if (req.query.username) {
       const username = HttpParamValidators.MustBeString(
         req.query,
         "username",
         2
       );
-      const doc = await orgBLL.GetUserByUsername(username);
+      const doc = await orgBLL.GetUsersByUsersname(username);
       res.json(doc);
     }
   });
 
   //Create new user
-  app.post("/user/create", async (req, res) => {
+  app.post("/users/create", async (req, res) => {
     const username = HttpParamValidators.MustBeString(req.body, "username", 2);
-    const org_id = HttpParamValidators.MustBeString(req.body, "org_id", 8);
     const first_name = HttpParamValidators.MustBeString(
       req.body,
       "first_name",
@@ -66,7 +46,7 @@ export function NewOrgAPI(
       "last_name",
       2
     );
-    const role = HttpParamValidators.MustBeOneOf(req.body, "role", roleType);
+    const role = HttpParamValidators.MustBeString(req.body, "role", 2);
     const phone = HttpParamValidators.MustBeString(req.body, "phone", 10);
     let birthday = req.body.birthday;
     if (!birthday) {
@@ -77,23 +57,22 @@ export function NewOrgAPI(
       birthday = `${day}-${month}-${year}`;
     }
 
-    const params: OrgNS.CreateUserParams = {
+    const params: UsersNS.CreateUsersParams = {
       username,
-      org_id,
       first_name,
       last_name,
       role,
       phone,
       birthday,
     };
-    const user = await orgBLL.CreateUser(params);
-    res.json(user);
+    const users = await orgBLL.CreateUsers(params);
+    res.json(users);
   });
 
   //Update user
-  app.post("/user/update", async (req, res) => {
+  app.post("/users/update", async (req, res) => {
     const id = HttpParamValidators.MustBeString(req.query, "id");
-    const params: OrgNS.UpdateUserParams = {};
+    const params: UsersNS.UpdateUsersParams = {};
 
     if (req.body.first_name) {
       params.first_name = HttpParamValidators.MustBeString(
@@ -112,7 +91,7 @@ export function NewOrgAPI(
     }
 
     if (req.body.role) {
-      params.role = HttpParamValidators.MustBeOneOf(req.body, "role", roleType);
+      params.last_name = HttpParamValidators.MustBeString(req.body, "role", 2);
     }
 
     if (req.body.phone) {
@@ -126,14 +105,14 @@ export function NewOrgAPI(
         1
       );
     }
-    await orgBLL.UpdateUser(id, params);
+    await orgBLL.UpdateUsers(id, params);
     res.json(1);
   });
 
   //Delete user
-  app.post("/user/delete", async (req, res) => {
+  app.post("/users/delete", async (req, res) => {
     const user_id = HttpParamValidators.MustBeString(req.query, "id", 8);
-    await orgBLL.DeleteUser(user_id as string);
+    await orgBLL.DeleteUsers(user_id as string);
     res.json(1);
   });
   return app;
