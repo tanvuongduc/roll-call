@@ -9,34 +9,40 @@ import Login from "./Modules/Org/Components/Login/Login";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./Styles/index.scss";
 
-const isLogged = !!AuthService.userInfo;
-
+//const isLogged = !!AuthService.userInfo;
+const isLogged = true;
 const Root = (
   <BrowserRouter>
     <Fragment>
       <Switch>
         <Suspense>
-          <Route exact path="/" render={() => {
-            return (!isLogged) ? (
-              <Redirect to="/login" ></Redirect>
-            ) : (
-              <Redirect to="/app" ></Redirect>
-            )
-          }} ></Route>
-          <Route path="/login" render={() => {
-            return (!isLogged) ? (
-              <Login></Login>
-            ) : (
-              <Redirect to="/app" ></Redirect>
-            )
-          }} ></Route>
-          <Route path="/app" render={() => {
-            return (isLogged) ? (
-              <App></App>
-            ) : (
-              <Redirect to="/login" ></Redirect>
-            )
-          }} ></Route>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              return !isLogged ? (
+                <Redirect to="/login"></Redirect>
+              ) : (
+                <Redirect to="/app"></Redirect>
+              );
+            }}
+          ></Route>
+          <Route
+            path="/login"
+            render={() => {
+              return !isLogged ? (
+                <Login></Login>
+              ) : (
+                <Redirect to="/app"></Redirect>
+              );
+            }}
+          ></Route>
+          <Route
+            path="/app"
+            render={() => {
+              return isLogged ? <App></App> : <Redirect to="/login"></Redirect>;
+            }}
+          ></Route>
         </Suspense>
       </Switch>
     </Fragment>
