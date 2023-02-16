@@ -1,0 +1,12 @@
+@import '../AddUpdateUser/EditUser.scss';
+@import "../../../../../../Styles/variables";
+
+
+.Main{
+    .search-user{    
+        display: flex;
+        .search{
+            margin-left: auto;
+        }    
+    }
+}
